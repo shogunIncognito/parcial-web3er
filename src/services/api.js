@@ -11,6 +11,6 @@ const api = axios.create({
 
 export const getMovies = async (query) => {
     const response = await api.get(`&query=${query || ''}`);
-    return response.data.result
+    return response.data.results
 }
 

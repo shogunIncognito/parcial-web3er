@@ -20,6 +20,6 @@ export const getMoviesByGenre = async (genreId) => {
 }
 
 export const getGenres = async () => {
-    const response = await api.get('genre/tv/list?language=en')
+    const response = await api.get('genre/movie/list?language=es')
     return response.data
 }

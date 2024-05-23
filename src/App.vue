@@ -12,7 +12,7 @@ const genres = ref([])
 const fetchMovies = async (query) => {
   firstSearch.value = false
   loading.value = true
-
+  
   try {
     movies.value = await getMovies(query)
   } catch (error) {
@@ -37,12 +37,11 @@ const handleGenreChange = async (e) => {
 
 getGenres()
   .then(res => genres.value = res.genres)
-
 </script>
 
 <template>
   <h1 class="text-center text-3xl my-5 mb-10">Buscador de películas</h1>
-  <form @submit.prevent="() => fetchMovies(search)" class="flex flex-col mx-10 sm:flex-row justify-center m-2 gap-2">
+  <form @submit.prevent="fetchMovies(search)" class="flex flex-col mx-10 sm:flex-row justify-center m-2 gap-2">
     <input v-model="search" type="text"
       class="outline-none bg-transparent ring-indigo-400 ring-2 p-1 rounded md:w-1/4 lg:w-1/6 focus:ring-indigo-700 hover:ring-indigo-500 transition-all duration-300">
 
@@ -63,19 +62,19 @@ getGenres()
   <h2 v-else-if="movies.length === 0 && !firstSearch" class="text-center text-xl mt-14">No hay resultados</h2>
 
   <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4 m-5 md:mx-10">
-    <article v-for="movie in movies" class="bg-neutral-700 rounded flex flex-col">
+    <article v-for="movie in movies" class="bg-neutral-700 rounded flex flex-col hover:shadow-md hover:shadow-indigo-500 transition-all duration-200">
       <div class="relative">
         <img :src="movie.poster_path ? `https://image.tmdb.org/t/p/w342/${movie.poster_path}` : 'https://via.placeholder.com/342x512'"
           :alt="movie.title" class="rounded w-full">
-        <span class="absolute left-1 bottom-0 m-1 bg-black/75 p-1.5 rounded">{{ movie.release_date }}</span>
-        <span class="absolute right-1 bottom-0 m-1 bg-black/75 p-1.5 rounded uppercase">
+        <span class="absolute left-1 top-0 m-1 bg-black/75 p-1.5 rounded">{{ movie.release_date }}</span>
+        <span class="absolute right-1 top-0 m-1 bg-black/75 p-1.5 rounded uppercase">
           {{ movie.original_language }}
         </span>
       </div>
       <div class="p-3 shadow flex-1 flex flex-col gap-2">
 
         <header class="flex-1">
-          <h3>{{ movie.title }}</h3>
+          <h3 class="text-xl font-bold">{{ movie.title }}</h3>
           <p class="line-clamp-6">{{ movie.overview }}</p>
         </header>
 
